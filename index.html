@@ -18,13 +18,11 @@
             color: #1e2a2f;
         }
 
-        /* 主容器 */
         .container {
             max-width: 1280px;
             margin: 0 auto;
         }
 
-        /* 头部 */
         .hero {
             text-align: center;
             margin-bottom: 48px;
@@ -49,7 +47,6 @@
             font-weight: 500;
         }
 
-        /* 投票状态栏 */
         .status-bar {
             display: flex;
             justify-content: space-between;
@@ -78,10 +75,6 @@
             color: #a5562c;
         }
 
-        .reset-area {
-            font-size: 0.85rem;
-        }
-
         .reset-btn {
             background: none;
             border: 1px solid #cdba8c;
@@ -99,14 +92,12 @@
             border-color: #b28b5e;
         }
 
-        /* 卡片网格 */
         .cards-grid {
             display: flex;
             flex-direction: column;
             gap: 32px;
         }
 
-        /* 卡片样式: 左边图片，右边内容 */
         .vote-card {
             background: #ffffff;
             border-radius: 32px;
@@ -119,66 +110,26 @@
             border: 1px solid #ede6d9;
         }
 
-        /* 左侧图片区 */
         .card-media {
             flex: 1.2;
-            min-width: 220px;
-            background: #f3efE7;
+            min-width: 260px;
+            min-height: 220px;
+            background: #e8e0d4;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: #e3dbcd;
             border-right: 1px solid #f0e5d6;
         }
 
-        /* 图片占位符 + 上传指引 */
-        .img-placeholder {
-            width: 100%;
-            padding: 32px 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: #faf7f0;
-            min-height: 260px;
-        }
-
-        .placeholder-icon {
-            font-size: 48px;
-            opacity: 0.55;
-        }
-
-        .placeholder-text {
-            font-size: 0.8rem;
-            color: #a28c6f;
-            background: #fff2e2;
-            padding: 6px 14px;
-            border-radius: 40px;
-            display: inline-block;
-            font-weight: 500;
-        }
-
-        .upload-note {
-            font-size: 0.7rem;
-            color: #b98141;
-            margin-top: 5px;
-        }
-
-        /* 实际图像（待用户上传后动态替换）*/
         .card-img {
             width: 100%;
             height: 100%;
+            min-height: 220px;
             object-fit: cover;
             display: block;
         }
 
-        /* 右侧内容区 */
         .card-content {
             flex: 2;
             padding: 24px 28px;
@@ -190,7 +141,6 @@
         .team-title {
             font-size: 1.7rem;
             font-weight: 700;
-            letter-spacing: -0.3px;
             background: linear-gradient(120deg, #2d4f2c, #b87c4a);
             background-clip: text;
             -webkit-background-clip: text;
@@ -205,7 +155,6 @@
             line-height: 1.5;
             font-size: 0.95rem;
             margin-bottom: 20px;
-            opacity: 0.85;
         }
 
         .team-members {
@@ -245,10 +194,6 @@
             font-size: 1rem;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .vote-btn:hover:not(:disabled) {
@@ -281,11 +226,6 @@
             color: #b1531a;
         }
 
-        hr {
-            margin: 10px 0;
-        }
-
-        /* 底部 */
         .footer-note {
             text-align: center;
             margin-top: 60px;
@@ -295,27 +235,6 @@
             padding-top: 30px;
         }
 
-        @media (max-width: 780px) {
-            body {
-                padding: 24px 16px;
-            }
-            .vote-card {
-                flex-direction: column;
-            }
-            .card-media {
-                border-right: none;
-                border-bottom: 1px solid #efe2cf;
-                min-height: 200px;
-            }
-            .team-title {
-                font-size: 1.4rem;
-            }
-            .card-content {
-                padding: 20px;
-            }
-        }
-
-        /* 提示toast */
         .toast-msg {
             position: fixed;
             bottom: 30px;
@@ -329,8 +248,23 @@
             font-size: 0.9rem;
             z-index: 1000;
             pointer-events: none;
-            transition: 0.2s;
             font-weight: 500;
+        }
+
+        @media (max-width: 780px) {
+            body {
+                padding: 24px 16px;
+            }
+            .vote-card {
+                flex-direction: column;
+            }
+            .card-media {
+                border-right: none;
+                border-bottom: 1px solid #efe2cf;
+            }
+            .team-title {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
@@ -344,399 +278,178 @@
 
     <div class="status-bar">
         <div id="voteStatusMessage" class="vote-message">✨ 尚未投票 · 每位伙伴仅可投出神圣一票 ✨</div>
-        <div class="reset-area">
-            <button id="resetVoteBtn" class="reset-btn">⟳ 重置投票（仅用于演示）</button>
+        <div>
+            <button id="resetVoteBtn" class="reset-btn">⟳ 重置投票</button>
         </div>
     </div>
 
-    <div class="cards-grid" id="cardsGrid">
-        <!-- 八个卡片将动态生成，便于维护投票逻辑 -->
-    </div>
+    <div class="cards-grid" id="cardsGrid"></div>
 
     <div class="footer-note">
         🌟 每个团队都展现了「一流的设计、一流的体验、一流的效率」精神 🌟<br>
-        每人仅限一票，点击按钮支持你心中的最佳团队！<br>
-        📸 图片上传方法：点击任意卡片左侧占位区，选择本地图片即可关联该团队风采照。
+        ✅ 每人仅限一票，点击按钮支持你心中的最佳团队！
     </div>
 </div>
 
 <script>
-    // ----- 团队数据 (图片路径先置空，用户上传后本地存储管理，但鉴于localstorage不能存实际图片文件，改用内存URL)
-    // 为了方便演示并且满足“图片在我桌面上，先空着，教上传” —— 提供点击上传功能
-    // 定义8个团队，基于文档内容整理
+    // 团队数据 - 图片路径使用上传的图片
     const teamsData = [
-        {
-            id: 0,
-            title: "草原绿茵 · 硬核同心",
-            desc: "拔河赛场全力以赴，每一双手紧握绳索，凝心聚力诠释「一流体验、一流设计、一流效率」。团队协作如同草原雄风，势不可挡。",
-            members: "金姝婷 刘会 罗勇平 王均松 杜云中 徐秉正 徐世峰 徐洲 袁章焱 陈征伟 章富洪 周涛 王天祥 韦鹏程 程名木",
-            imageUrl: "",    // 空，用户上传填充
-            votes: 0
-        },
-        {
-            id: 1,
-            title: "牧野赛道 · 硬核接力",
-            desc: "草原百米接力激情对抗，肾上腺素与集体荣誉交织。团长意外受伤启示「一流的设计需想全面」，竞技中效率为王，一步快步步快。",
-            members: "储龙威 徐露 石慧 周瑞 徐洲 周涛 汪磊 杜云中 章富洪 蔡青 徐德智 任容贤 李源 袁章焱 李余嘉 滕帅 王均松 刘会 王天祥 韦鹏程 徐世峰 徐秉正",
-            imageUrl: "",
-            votes: 0
-        },
-        {
-            id: 2,
-            title: "蒙元风情 · 硬核团魂",
-            desc: "蒙古族特色餐厅创意照，狼首高昂寓意不屈不挠。圆桌同心享受「家」的归属感，整齐比心彰显高效协同，铸就王者之师。",
-            members: "王均松 滕帅 程名木 陈征伟 汪磊 周洁 杨纪迪 齐瑞 章富洪 储龙威 王天祥 徐少博 韦鹏程 石慧 田士军 徐世峰 徐露 徐秉正 李光阳 金姝婷",
-            imageUrl: "",
-            votes: 0
-        },
-        {
-            id: 3,
-            title: "四姑娘山 · 攀登超越",
-            desc: "雪山之巅挑战自我，设计理念融入登山精神。前方女生比心象征爱与凝聚力，展现「一流效率」和完美协作，脚踏实地，仰望星空。",
-            members: "许钰婷 许佳琳 叶佳 杨长青 施玉锋 刘伟 郭怀远 姚衎 文家豪 夏忠堂 李克兴 王全 吕天翔 柳家阳 郭翔文 高秀文 危仁康",
-            imageUrl: "",
-            votes: 0
-        },
-        {
-            id: 4,
-            title: "穹顶风物 · 硬核同行",
-            desc: "特色穹顶建筑群下活力赛场，凝心配合，互帮互助。沉浸式团队体验践行三一流准则，凝聚并肩攻坚的硬核精神。",
-            members: "汪丽 王均松 罗勇平 袁章焱 周瑞 李源 徐洲 周涛 李光阳 杜云中 陈征伟 高童童 周洁 徐秉正 李余嘉",
-            imageUrl: "",
-            votes: 0
-        },
-        {
-            id: 5,
-            title: "高原云巅 · 硬核同行",
-            desc: "跳多高不重要，一起跳就够了！高原用力一跃，放下身份包袱，建立信任最快的方式。洒脱同频，释放真我。",
-            members: "郑昊 张凯 李明玖 易翔 胡耀 杨晨 谭钰钏 陈方伟",
-            imageUrl: "",
-            votes: 0
-        },
-        {
-            id: 6,
-            title: "碧海晴空 · 格兰岛征途",
-            desc: "太平洋格兰岛天空下，文化旗帜随风舒展。有人握紧托举，有人追赶生长，彼此聚拢成为同路人，一流理念渗入每一寸土地。",
-            members: "冯张浩鹏 刘爽 赵乾璟 陆鑫 高佳麟 汤婷婷 陈文豪 谭磊（指导） 刘志江（摄影） 黄雅军（指导）",
-            imageUrl: "",
-            votes: 0
-        },
-        {
-            id: 7,
-            title: "川西晴空 · 天线会师",
-            desc: "三峡大坝超级工程启迪，川西胜利会师，上海X重庆天线伙伴并肩前行。一个人渺小，一群人站在一起气场胜过雪山。",
-            members: "上海代表:陈义军 郁小民 叶文坛 于春水 重庆代表:李红燕 廖雨轩 夏文静 吴浪 欧阳涛 张刘杨 甘桂权 汤斌 + 三峡同事等",
-            imageUrl: "",
-            votes: 0
-        }
+        { id: 0, title: "草原绿茵 · 硬核同心", desc: "拔河赛场全力以赴，每一双手紧握绳索，凝心聚力诠释「一流体验、一流设计、一流效率」。团队协作如同草原雄风，势不可挡。", members: "金姝婷 刘会 罗勇平 王均松 杜云中 徐秉正 徐世峰 徐洲 袁章焱 陈征伟 章富洪 周涛 王天祥 韦鹏程 程名木", imageUrl: "0.jpg", votes: 0 },
+        { id: 1, title: "牧野赛道 · 硬核接力", desc: "草原百米接力激情对抗，肾上腺素与集体荣誉交织。团长意外受伤启示「一流的设计需想全面」，竞技中效率为王，一步快步步快。", members: "储龙威 徐露 石慧 周瑞 徐洲 周涛 汪磊 杜云中 章富洪 蔡青 徐德智 任容贤 李源 袁章焱 李余嘉 滕帅 王均松 刘会 王天祥 韦鹏程 徐世峰 徐秉正", imageUrl: "1.jpg", votes: 0 },
+        { id: 2, title: "蒙元风情 · 硬核团魂", desc: "蒙古族特色餐厅创意照，狼首高昂寓意不屈不挠。圆桌同心享受「家」的归属感，整齐比心彰显高效协同，铸就王者之师。", members: "王均松 滕帅 程名木 陈征伟 汪磊 周洁 杨纪迪 齐瑞 章富洪 储龙威 王天祥 徐少博 韦鹏程 石慧 田士军 徐世峰 徐露 徐秉正 李光阳 金姝婷", imageUrl: "2.jpg", votes: 0 },
+        { id: 3, title: "四姑娘山 · 攀登超越", desc: "雪山之巅挑战自我，设计理念融入登山精神。前方女生比心象征爱与凝聚力，展现「一流效率」和完美协作，脚踏实地，仰望星空。", members: "许钰婷 许佳琳 叶佳 杨长青 施玉锋 刘伟 郭怀远 姚衎 文家豪 夏忠堂 李克兴 王全 吕天翔 柳家阳 郭翔文 高秀文 危仁康", imageUrl: "3.jpg", votes: 0 },
+        { id: 4, title: "穹顶风物 · 硬核同行", desc: "特色穹顶建筑群下活力赛场，凝心配合，互帮互助。沉浸式团队体验践行三一流准则，凝聚并肩攻坚的硬核精神。", members: "汪丽 王均松 罗勇平 袁章焱 周瑞 李源 徐洲 周涛 李光阳 杜云中 陈征伟 高童童 周洁 徐秉正 李余嘉", imageUrl: "4.jpg", votes: 0 },
+        { id: 5, title: "高原云巅 · 硬核同行", desc: "跳多高不重要，一起跳就够了！高原用力一跃，放下身份包袱，建立信任最快的方式。洒脱同频，释放真我。", members: "郑昊 张凯 李明玖 易翔 胡耀 杨晨 谭钰钏 陈方伟", imageUrl: "5.jpg", votes: 0 },
+        { id: 6, title: "碧海晴空 · 格兰岛征途", desc: "太平洋格兰岛天空下，文化旗帜随风舒展。有人握紧托举，有人追赶生长，彼此聚拢成为同路人，一流理念渗入每一寸土地。", members: "冯张浩鹏 刘爽 赵乾璟 陆鑫 高佳麟 汤婷婷 陈文豪 谭磊（指导） 刘志江（摄影） 黄雅军（指导）", imageUrl: "6.jpg", votes: 0 },
+        { id: 7, title: "川西晴空 · 天线会师", desc: "三峡大坝超级工程启迪，川西胜利会师，上海X重庆天线伙伴并肩前行。一个人渺小，一群人站在一起气场胜过雪山。", members: "上海:陈义军 郁小民 叶文坛 于春水 重庆:李红燕 廖雨轩 夏文静 吴浪 欧阳涛 张刘杨 甘桂权 汤斌", imageUrl: "7.jpg", votes: 0 }
     ];
 
-    // 存储投票状态: 是否已投票 + 投票给哪个teamId (null表示未投)
     let hasVoted = false;
     let votedTeamId = null;
 
-    // 存储图片映射: 本地用户上传的图片数据URL (持久化localStorage)
-    // 为了方便演示，也存储进localStorage，但注意dataURL可能会很长，但8张照片可以接受
-    function loadImageFromStorage() {
-        const stored = localStorage.getItem("teamImagesBase64");
-        if(stored) {
-            try {
-                const imagesMap = JSON.parse(stored);
-                for(let i=0; i<teamsData.length; i++) {
-                    const tid = teamsData[i].id;
-                    if(imagesMap[tid] && imagesMap[tid].startsWith("data:image")) {
-                        teamsData[i].imageUrl = imagesMap[tid];
-                    }
-                }
-            } catch(e) {}
+    function loadVotes() {
+        const savedVote = localStorage.getItem("userVote");
+        if (savedVote) {
+            const v = JSON.parse(savedVote);
+            hasVoted = v.hasVoted;
+            votedTeamId = v.votedTeamId;
         }
-    }
-
-    function saveImageToStorage() {
-        const saveMap = {};
-        teamsData.forEach(team => {
-            if(team.imageUrl && team.imageUrl.startsWith("data:image")) {
-                saveMap[team.id] = team.imageUrl;
-            }
-        });
-        localStorage.setItem("teamImagesBase64", JSON.stringify(saveMap));
-    }
-
-    // 投票持久化记录
-    function loadVoteRecord() {
-        const storedVote = localStorage.getItem("userVoteRecord");
-        if(storedVote) {
-            const record = JSON.parse(storedVote);
-            hasVoted = record.hasVoted;
-            votedTeamId = record.votedTeamId;
-            // 同步票数
-            if(hasVoted && votedTeamId !== null && votedTeamId !== undefined) {
-                // 确保团队票数已经累计，但为了数据一致性，从本地存储还原计数 (以防刷新)
-                const storedCounts = localStorage.getItem("teamsVotesCount");
-                if(storedCounts) {
-                    const countsArr = JSON.parse(storedCounts);
-                    if(Array.isArray(countsArr) && countsArr.length === teamsData.length) {
-                        teamsData.forEach((team, idx) => {
-                            team.votes = countsArr[idx];
-                        });
-                    } else {
-                        // 若不一致，重新从vote记录加一次幂等? 简单解决: 若票数存储损坏则基于记录重建。
-                        rebuildVotesFromRecord();
-                    }
-                } else {
-                    rebuildVotesFromRecord();
-                }
-            } else {
-                // 未投票时确保票数从存储加载(若无则0)
-                const storedCounts = localStorage.getItem("teamsVotesCount");
-                if(storedCounts) {
-                    const countsArr = JSON.parse(storedCounts);
-                    if(Array.isArray(countsArr) && countsArr.length === teamsData.length) {
-                        teamsData.forEach((team, idx) => team.votes = countsArr[idx]);
-                    }
+        const savedCounts = localStorage.getItem("teamVotes");
+        if (savedCounts) {
+            const counts = JSON.parse(savedCounts);
+            for (let i = 0; i < teamsData.length; i++) {
+                if (counts[teamsData[i].id] !== undefined) {
+                    teamsData[i].votes = counts[teamsData[i].id];
                 }
             }
-        } else {
-            // 没有任何投票记录，重置所有票数为0
-            teamsData.forEach(t => t.votes = 0);
-            saveVotesCountToLocal();
         }
     }
 
-    function rebuildVotesFromRecord() {
-        // 先将所有票清零，再根据已投票记录累加
-        teamsData.forEach(t => t.votes = 0);
-        if(hasVoted && votedTeamId !== null) {
-            const targetTeam = teamsData.find(t => t.id === votedTeamId);
-            if(targetTeam) targetTeam.votes = 1;
-        }
-        saveVotesCountToLocal();
+    function saveVotes() {
+        localStorage.setItem("userVote", JSON.stringify({ hasVoted: hasVoted, votedTeamId: votedTeamId }));
+        const counts = {};
+        teamsData.forEach(t => { counts[t.id] = t.votes; });
+        localStorage.setItem("teamVotes", JSON.stringify(counts));
     }
 
-    function saveVotesCountToLocal() {
-        const counts = teamsData.map(t => t.votes);
-        localStorage.setItem("teamsVotesCount", JSON.stringify(counts));
-    }
-
-    function saveVoteRecord() {
-        localStorage.setItem("userVoteRecord", JSON.stringify({
-            hasVoted: hasVoted,
-            votedTeamId: votedTeamId
-        }));
-        // 同时更新票数存储
-        saveVotesCountToLocal();
-    }
-
-    // 投票核心方法
     function castVote(teamId) {
-        if(hasVoted) {
-            showToast("❌ 您已经投过票了！每人只能参与一次，感谢您的支持～", 2500);
+        if (hasVoted) {
+            showToast("❌ 您已经投过票了！每人只能参与一次", 2000);
             return false;
         }
         const team = teamsData.find(t => t.id === teamId);
-        if(!team) return false;
-        // 执行投票
-        hasVoted = true;
-        votedTeamId = teamId;
-        team.votes += 1;
-        // 更新存储
-        saveVoteRecord();
-        // 刷新UI
-        renderCards();
-        showToast(`✅ 投票成功！「${team.title}」获得一票！凝心聚力，感谢参与。`, 2500);
-        updateStatusMessage();
-        return true;
+        if (team) {
+            hasVoted = true;
+            votedTeamId = teamId;
+            team.votes++;
+            saveVotes();
+            renderCards();
+            updateStatus();
+            showToast(`✅ 投票成功！「${team.title}」获得一票`, 2000);
+            return true;
+        }
+        return false;
     }
 
-    // 重置投票（仅用于演示&管理员）
-    function resetVoteSystem() {
-        if(confirm("⚠️ 重置将清除所有人的投票记录和票数，并允许重新投票。此操作仅用于内部演示，确定重置吗？")) {
+    function resetVote() {
+        if (confirm("⚠️ 重置将清除所有投票记录，确定吗？")) {
             hasVoted = false;
             votedTeamId = null;
-            // 重置所有票数为0
             teamsData.forEach(t => t.votes = 0);
-            saveVoteRecord();
-            // 不清除图片
+            saveVotes();
             renderCards();
-            updateStatusMessage();
-            showToast("🔄 投票系统已重置，所有票数归零，你可以重新投票啦。", 2500);
+            updateStatus();
+            showToast("🔄 投票系统已重置", 1500);
         }
     }
 
-    // 更新顶部状态
-    function updateStatusMessage() {
-        const msgDiv = document.getElementById("voteStatusMessage");
-        if(hasVoted) {
-            const votedTeam = teamsData.find(t => t.id === votedTeamId);
-            const teamName = votedTeam ? votedTeam.title : "未知团队";
-            msgDiv.innerHTML = `🏆 您已投票 · 支持「${teamName}」 | 感谢每一位同路人 🏆`;
-            msgDiv.classList.add("disabled-message");
-        } else {
-            msgDiv.innerHTML = "🎯 尚未投票 · 每位伙伴仅可投出一票，选出最硬核团队瞬间 🎯";
-            msgDiv.classList.remove("disabled-message");
-        }
-    }
-
-    // 处理图片上传 (针对每个卡片)
-    function handleImageUpload(teamId, event) {
-        const file = event.target.files[0];
-        if(!file) return;
-        if(!file.type.startsWith("image/")) {
-            showToast("请上传图片文件 (jpg/png等)", 1500);
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const imgDataUrl = e.target.result;
-            const team = teamsData.find(t => t.id === teamId);
-            if(team) {
-                team.imageUrl = imgDataUrl;
-                saveImageToStorage();
-                renderCards();  // 重新渲染，替换图片展示
-                showToast(`📸 已为「${team.title}」上传图片，风采即刻呈现！`, 2000);
-            }
-        };
-        reader.readAsDataURL(file);
-    }
-
-    // 渲染全部卡片(图片左，内容右)
     function renderCards() {
         const grid = document.getElementById("cardsGrid");
-        if(!grid) return;
+        if (!grid) return;
         grid.innerHTML = "";
+        
+        const sorted = [...teamsData].sort((a, b) => b.votes - a.votes);
+        
         teamsData.forEach(team => {
+            const rank = sorted.findIndex(t => t.id === team.id) + 1;
+            const rankHtml = rank <= 3 ? `<span class="rank-badge">🏅 第${rank}名</span>` : `<span class="rank-badge">📊 第${rank}名</span>`;
+            
             const card = document.createElement("div");
             card.className = "vote-card";
-            // 左侧图片区域
+            
             const mediaDiv = document.createElement("div");
             mediaDiv.className = "card-media";
-            // 判断是否有图片
-            if(team.imageUrl && team.imageUrl.trim() !== "") {
-                const img = document.createElement("img");
-                img.src = team.imageUrl;
-                img.className = "card-img";
-                img.style.width = "100%";
-                img.style.height = "100%";
-                img.style.objectFit = "cover";
-                img.alt = team.title;
-                mediaDiv.appendChild(img);
-                // 添加一个覆盖小按钮，以便更换图片（提供方便）
-                const uploadOverlay = document.createElement("div");
-                uploadOverlay.style.position = "absolute";
-                uploadOverlay.style.bottom = "12px";
-                uploadOverlay.style.right = "12px";
-                uploadOverlay.style.background = "rgba(0,0,0,0.6)";
-                uploadOverlay.style.padding = "4px 10px";
-                uploadOverlay.style.borderRadius = "30px";
-                uploadOverlay.style.fontSize = "12px";
-                uploadOverlay.style.color = "white";
-                uploadOverlay.style.cursor = "pointer";
-                uploadOverlay.innerText = "更换图片";
-                const fileInput = document.createElement("input");
-                fileInput.type = "file";
-                fileInput.accept = "image/*";
-                fileInput.style.display = "none";
-                uploadOverlay.onclick = (e) => {
-                    e.stopPropagation();
-                    fileInput.click();
-                };
-                fileInput.onchange = (e) => handleImageUpload(team.id, e);
-                mediaDiv.appendChild(uploadOverlay);
-                mediaDiv.appendChild(fileInput);
-            } else {
-                // 占位符并支持上传
-                const placeholder = document.createElement("div");
-                placeholder.className = "img-placeholder";
-                placeholder.innerHTML = `
-                    <div class="placeholder-icon">🖼️</div>
-                    <div class="placeholder-text">点击上传团队照片</div>
-                    <div class="upload-note">支持JPG/PNG，展示硬核风采</div>
-                `;
-                const hiddenInput = document.createElement("input");
-                hiddenInput.type = "file";
-                hiddenInput.accept = "image/*";
-                hiddenInput.style.display = "none";
-                placeholder.style.cursor = "pointer";
-                placeholder.onclick = () => hiddenInput.click();
-                hiddenInput.onchange = (e) => handleImageUpload(team.id, e);
-                placeholder.appendChild(hiddenInput);
-                mediaDiv.appendChild(placeholder);
-            }
             
-            // 右侧内容区
+            const img = document.createElement("img");
+            img.src = team.imageUrl;
+            img.className = "card-img";
+            img.onerror = function() {
+                this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23ddd'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999' font-size='14'%3E图片缺失%3C/text%3E%3C/svg%3E";
+            };
+            mediaDiv.appendChild(img);
+            
             const contentDiv = document.createElement("div");
             contentDiv.className = "card-content";
-            // 计算排名展示（实时票数）
-            const sorted = [...teamsData].sort((a,b) => b.votes - a.votes);
-            const rankIndex = sorted.findIndex(t => t.id === team.id) + 1;
-            let rankHtml = rankIndex <= 3 ? `<span class="rank-badge">🏅 第${rankIndex}名</span>` : `<span class="rank-badge">📊 当前第${rankIndex}</span>`;
             contentDiv.innerHTML = `
                 <div class="team-title">${escapeHtml(team.title)} ${rankHtml}</div>
                 <div class="team-desc">${escapeHtml(team.desc)}</div>
-                <div class="team-members"><span class="members-label">👥 核心成员</span> ${escapeHtml(team.members.substring(0, 100))}${team.members.length>100?'...':''}</div>
+                <div class="team-members"><span class="members-label">👥 成员</span> ${escapeHtml(team.members.substring(0, 120))}${team.members.length > 120 ? "..." : ""}</div>
                 <div class="vote-action">
                     <button class="vote-btn" data-id="${team.id}" ${hasVoted ? 'disabled' : ''}>❤️ 投票支持</button>
                     <div class="vote-count">🌟 ${team.votes} 票</div>
                 </div>
             `;
+            
             card.appendChild(mediaDiv);
             card.appendChild(contentDiv);
             grid.appendChild(card);
         });
-
-        // 绑定动态投票事件
-        document.querySelectorAll('.vote-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        
+        document.querySelectorAll(".vote-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                if(hasVoted) {
-                    showToast("您已经投过票了，无法再次投票！", 1800);
-                    return;
-                }
-                const teamId = parseInt(btn.getAttribute('data-id'));
-                castVote(teamId);
+                const id = parseInt(btn.getAttribute("data-id"));
+                castVote(id);
             });
         });
     }
-
-    function escapeHtml(str) {
-        if(!str) return "";
-        return str.replace(/[&<>]/g, function(m) {
-            if(m === '&') return '&amp;';
-            if(m === '<') return '&lt;';
-            if(m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
-    }
-
-    let toastTimeout = null;
-    function showToast(msg, duration=2000) {
-        let toast = document.querySelector('.toast-msg');
-        if(toast) toast.remove();
-        const newToast = document.createElement('div');
-        newToast.className = 'toast-msg';
-        newToast.innerText = msg;
-        document.body.appendChild(newToast);
-        if(toastTimeout) clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => {
-            if(newToast) newToast.remove();
-        }, duration);
-    }
-
-    // 初始化全部
-    function init() {
-        loadImageFromStorage();
-        loadVoteRecord();
-        renderCards();
-        updateStatusMessage();
-        // 重置按钮监听
-        const resetBtn = document.getElementById("resetVoteBtn");
-        if(resetBtn) {
-            resetBtn.addEventListener("click", resetVoteSystem);
+    
+    function updateStatus() {
+        const msgDiv = document.getElementById("voteStatusMessage");
+        if (hasVoted) {
+            const team = teamsData.find(t => t.id === votedTeamId);
+            msgDiv.innerHTML = `🏆 您已投票给「${team ? team.title : "未知"}」| 感谢参与 🏆`;
+            msgDiv.classList.add("disabled-message");
+        } else {
+            msgDiv.innerHTML = "🎯 尚未投票 · 每位伙伴仅可投出一票 🎯";
+            msgDiv.classList.remove("disabled-message");
         }
     }
-    init();
+    
+    function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === "&") return "&amp;";
+            if (m === "<") return "&lt;";
+            if (m === ">") return "&gt;";
+            return m;
+        });
+    }
+    
+    function showToast(msg, duration) {
+        let toast = document.querySelector(".toast-msg");
+        if (toast) toast.remove();
+        const newToast = document.createElement("div");
+        newToast.className = "toast-msg";
+        newToast.innerText = msg;
+        document.body.appendChild(newToast);
+        setTimeout(() => newToast.remove(), duration);
+    }
+    
+    loadVotes();
+    renderCards();
+    updateStatus();
+    document.getElementById("resetVoteBtn").addEventListener("click", resetVote);
 </script>
 </body>
 </html>
