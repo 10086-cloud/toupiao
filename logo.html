@@ -308,6 +308,14 @@
             details: [],
             imageUrl: "logo2.jpg", 
             likes: 0 
+        },
+        { 
+            id: 2, 
+            title: "硬件核心 · 电路之盾", 
+            desc: `Logo以"H"（Hardware）为核心，采用电路板走线风格艺术化呈现，彰显硬件工程专业属性。\n\n五边形盾牌外框象征硬件部五大部门紧密协作、稳固可靠；底部三大图标分别对应"一流体验、一流设计、一流效率"三大文化支柱；\n左右蓝色电路节点寓意"想清楚（输入）— 做到位（输出）"的行动闭环。\n\n整体科技感强、线条利落精准，完美诠释硬件部"专业、高效、追求极致"的团队文化与价值追求。`,
+            details: [],
+            imageUrl: "logo3.jpg", 
+            likes: 0 
         }
     ];
 
@@ -349,7 +357,7 @@
 
         logosData.forEach(logo => {
             const rank = rankMap.get(logo.id);
-            const rankHtml = rank <= 2 ? `<span style="background:#ffecb3; padding:2px 12px; border-radius:20px; font-size:0.75rem; margin-left:12px;">🏅 第${rank}名</span>` : `<span style="background:#f0e7d8; padding:2px 12px; border-radius:20px; font-size:0.75rem; margin-left:12px;">📊 第${rank}名</span>`;
+            const rankHtml = rank <= 3 ? `<span style="background:#ffecb3; padding:2px 12px; border-radius:20px; font-size:0.75rem; margin-left:12px;">🏅 第${rank}名</span>` : `<span style="background:#f0e7d8; padding:2px 12px; border-radius:20px; font-size:0.75rem; margin-left:12px;">📊 第${rank}名</span>`;
 
             const card = document.createElement("div");
             card.className = "like-card";
